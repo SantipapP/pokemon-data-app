@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
+import Link from 'next/link';
 import axios from 'axios';
 
 interface Pokemon {
@@ -18,7 +19,6 @@ function PokeCard() {
         const fetchPokeData = async () => {
             try {
                 const PokeResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1025`)
-                // console.log(PokeResponse['data']['results'])
                 setPoke(PokeResponse['data']['results'])
             } catch (error) {
                 console.log(error)
@@ -46,7 +46,7 @@ function PokeCard() {
                 ) : (
                     <div className='grid grid-cols-6'>
                         {poke.map((val, index) => (
-                            <div key={val.name} className="m-2 w-60 h-80 bg-neutral-800 rounded-3xl text-neutral-300 p-4 flex flex-col items-start justify-center gap-3 hover:bg-gray-900 hover:shadow-2xl hover:shadow-sky-400 transition-shadow">
+                            <div key={val.name} className="m-2 w-60 h-80 bg-neutral-800 rounded-3xl text-neutral-300 p-4 flex flex-col items-start justify-center gap-3 hover:bg-gray-900 hover:shadow-2xl hover:shadow-sky-400 hover:scale-105 transition-transform duration-300 transition-shadow">
                                 <div className="w-52 h-40 rounded-2xl flex justify-center items-center">
                                     <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`} width={125} height={125} style={{ width: "auto", height: "auto" }} alt={val.name} priority />
                                 </div>
@@ -54,7 +54,9 @@ function PokeCard() {
                                     <p className="font-extrabold capitalize">{val.name}</p>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <button className="cursor-pointer bg-sky-700 font-extrabold p-2 px-6 rounded-xl hover:bg-sky-500 transition-colors">See more</button>
+                                    <Link href={`/Pokemons/${index + 1}`}>
+                                        <button className="cursor-pointer bg-sky-700 font-extrabold p-2 px-6 rounded-xl hover:bg-sky-500 transition-colors">See more</button>
+                                    </Link>
                                 </div>
                             </div>
                         ))}
