@@ -5,9 +5,43 @@ import Image from "next/image";
 import axios from "axios";
 import StatsBarChart from "@/app/Components/StatsBarChart";
 
+// สร้าง Interface สำหรับข้อมูล Pokémon
+interface PokeStats {
+    base_stat: number;
+    stat: {
+        name: string;
+    };
+}
+
+interface PokeAbility {
+    ability: {
+        name: string;
+    };
+}
+
+interface PokeType {
+    type: {
+        name: string;
+    };
+}
+
+interface PokeData {
+    name: string;
+    sprites: {
+        other: {
+            "official-artwork": {
+                front_default: string;
+            };
+        };
+    };
+    types: PokeType[];
+    abilities: PokeAbility[];
+    stats: PokeStats[];
+}
+
 function Page() {
     const params = useParams();
-    const [poke, setPoke] = useState<any>(null); // ใช้ any เพื่อหลีกเลี่ยงการสร้าง Interface
+    const [poke, setPoke] = useState<PokeData | null>(null); // ใช้ประเภท PokeData หรือ null
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -65,7 +99,7 @@ function Page() {
                             <p className="text-gray-500">Loading types...</p>
                         ) : poke && poke.types ? (
                             <ul className="mt-4 space-y-2">
-                                {poke.types.map((type: { type: { name: string } }) => (
+                                {poke.types.map((type) => (
                                     <li key={type.type.name} className="capitalize text-gray-700">
                                         {type.type.name}
                                     </li>
@@ -83,7 +117,7 @@ function Page() {
                             <p className="text-gray-500">Loading abilities...</p>
                         ) : poke && poke.abilities ? (
                             <ul className="mt-4 space-y-2">
-                                {poke.abilities.map((ability: { ability: { name: string } }) => (
+                                {poke.abilities.map((ability) => (
                                     <li key={ability.ability.name} className="capitalize text-gray-700">
                                         {ability.ability.name}
                                     </li>
@@ -106,7 +140,6 @@ function Page() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
