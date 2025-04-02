@@ -43,7 +43,7 @@ function NavBar() {
                         {dropdownOpen && (
                             <ul className='absolute left-0 mt-2 bg-gray-600 text-white p-2 rounded-md shadow-lg'>
                                 <li className='px-4 py-2 hover:bg-gray-700'>
-                                    <Link href="/item1">Item 1</Link>
+                                    <Link href="/item1">Balls</Link>
                                 </li>
                                 <li className='px-4 py-2 hover:bg-gray-700'>
                                     <Link href="/item2">Item 2</Link>
