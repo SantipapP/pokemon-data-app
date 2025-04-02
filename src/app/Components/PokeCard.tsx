@@ -50,11 +50,12 @@ function PokeCard() {
                                 <div className="w-52 h-40 rounded-2xl flex justify-center items-center">
                                     <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`} width={125} height={125} style={{ width: "auto", height: "auto" }} alt={val.name} priority />
                                 </div>
-                                <div className="">
+                                <div className="w-full flex justify-center items-center">
                                     <p className="font-extrabold capitalize">{val.name}</p>
-                                    <p className="">4 popular types of cards in UI design.</p>
                                 </div>
-                                <button className="bg-sky-700 font-extrabold p-2 px-6 rounded-xl hover:bg-sky-500 transition-colors">See more</button>
+                                <div className="w-full flex justify-center items-center">
+                                    <button className="cursor-pointer bg-sky-700 font-extrabold p-2 px-6 rounded-xl hover:bg-sky-500 transition-colors">See more</button>
+                                </div>
                             </div>
                         ))}
                     </div>
