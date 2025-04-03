@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link'
 import { FaChevronDown } from "react-icons/fa";
 import { CiMenuBurger } from "react-icons/ci";
+
 interface PokeDex {
     name: string;
     url: string;
