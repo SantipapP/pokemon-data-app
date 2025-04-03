@@ -66,12 +66,11 @@ function NavBar() {
                                 className={`absolute left-0 mt-2 bg-white shadow-lg rounded-md w-40 transition-all ${dropdownPokeDex ? "block" : "hidden"
                                     }`}
                             >
-                                <Link href="/web-dev" className="block px-4 py-2 hover:bg-gray-100">
-                                    Web Development
-                                </Link>
-                                <Link href="/seo" className="block px-4 py-2 hover:bg-gray-100">
-                                    SEO
-                                </Link>
+                                {PokeDex.map((pokedex, index) => (
+                                    <Link href="/project2" className="block px-4 py-2 hover:bg-gray-100">
+                                        {pokedex.name}
+                                    </Link>
+                                ))}
                             </div>
                         </div>
 
