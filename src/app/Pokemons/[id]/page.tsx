@@ -31,6 +31,7 @@ interface PokeData {
         other: {
             "official-artwork": {
                 front_default: string;
+                front_shiny: string;
             };
         };
     };
@@ -43,6 +44,8 @@ function Page() {
     const params = useParams();
     const [poke, setPoke] = useState<PokeData | null>(null); // ใช้ประเภท PokeData หรือ null
     const [loading, setLoading] = useState(true);
+
+    const [showShiny, setShowShiny] = useState(false);
 
     useEffect(() => {
         if (!params.id) return;
@@ -79,13 +82,50 @@ function Page() {
                         ) : poke && poke.sprites ? (
                             <>
                                 <h2 className="text-2xl font-semibold capitalize text-blue-600">{poke.name}</h2>
+
                                 <Image
-                                    src={poke.sprites.other["official-artwork"].front_default}
+                                    src={
+                                        showShiny
+                                            ? poke.sprites.other["official-artwork"].front_shiny
+                                            : poke.sprites.other["official-artwork"].front_default
+                                    }
                                     width={200}
                                     height={200}
                                     alt={poke.name}
                                     className="mx-auto mt-4"
                                 />
+
+                                {/* Toggle Switch */}
+                                <div className="flex items-center justify-center mt-6 gap-3">
+                                    <span className="text-sm text-gray-600">ปกติ</span>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            checked={showShiny}
+                                            onChange={() => setShowShiny(!showShiny)}
+                                        />
+                                        <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer dark:bg-gray-600 peer-checked:bg-blue-500 transition-all duration-300"></div>
+                                        <div className="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md transition-transform duration-300 peer-checked:translate-x-full"></div>
+                                    </label>
+                                    <span className="text-sm text-yellow-500">Shiny</span>
+                                </div>
+
+                                <div className="mt-6 flex justify-center gap-4">
+                                    <button
+                                        onClick={() => { window.location.href = `/Pokemons/${Number(params.id) - 1}` }}
+                                        className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                                        disabled={Number(params.id) === 1}
+                                    >
+                                        ◀ Back
+                                    </button>
+                                    <button
+                                        onClick={() => { window.location.href = `/Pokemons/${Number(params.id) + 1}` }}
+                                        className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                                    >
+                                        Next ▶
+                                    </button>
+                                </div>
                             </>
                         ) : (
                             <p className="text-gray-500">ไม่พบข้อมูล Pokémon</p>
